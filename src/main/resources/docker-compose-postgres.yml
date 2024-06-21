@@ -1,0 +1,21 @@
+version: '3.3'
+
+networks:
+  ktor-exposed-with-postgres:
+    driver: bridge
+
+services:
+  db:
+    container_name: postgres16
+    image: postgres:16-alpine
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    ports:
+      - "8432:5432"
+    environment:
+      POSTGRES_DB: ktor_tutorial_db
+      POSTGRES_USER: eugerman
+      POSTGRES_PASSWORD: p@ss
+    networks:
+      - ktor-exposed-with-postgres

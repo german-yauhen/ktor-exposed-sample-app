@@ -1,5 +1,6 @@
 package com.eugerman
 
+import com.eugerman.model.DummyTaskRepository
 import com.eugerman.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -11,7 +12,8 @@ fun main() {
 }
 
 fun Application.module() {
-    configureSerialization()
+    val repository = DummyTaskRepository()
+    configureSerialization(repository)
     configureDatabases()
     configureRouting()
 }
