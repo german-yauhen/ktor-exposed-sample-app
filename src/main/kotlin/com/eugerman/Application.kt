@@ -1,7 +1,9 @@
 package com.eugerman
 
-import com.eugerman.model.DummyTaskRepository
-import com.eugerman.plugins.*
+import com.eugerman.model.PostgresTaskRepository
+import com.eugerman.plugins.configureDatabases
+import com.eugerman.plugins.configureRouting
+import com.eugerman.plugins.configureSerialization
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -12,7 +14,7 @@ fun main() {
 }
 
 fun Application.module() {
-    val repository = DummyTaskRepository()
+    val repository = PostgresTaskRepository()
     configureSerialization(repository)
     configureDatabases()
     configureRouting()
