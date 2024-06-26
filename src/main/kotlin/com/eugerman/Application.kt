@@ -1,6 +1,6 @@
 package com.eugerman
 
-import com.eugerman.model.PostgresTaskRepository
+import com.eugerman.model.TaskRepositoryImpl
 import com.eugerman.plugins.configureDatabases
 import com.eugerman.plugins.configureRouting
 import com.eugerman.plugins.configureSerialization
@@ -14,7 +14,7 @@ fun main() {
 }
 
 fun Application.module() {
-    val repository = PostgresTaskRepository()
+    val repository = TaskRepositoryImpl()
     configureSerialization(repository)
     configureDatabases()
     configureRouting()

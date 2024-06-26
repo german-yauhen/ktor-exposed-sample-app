@@ -7,7 +7,7 @@ import com.eugerman.db.suspendTransaction
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteWhere
 
-class PostgresTaskRepository : TaskRepository {
+class TaskRepositoryImpl : TaskRepository {
     override suspend fun allTasks(): List<Task> = suspendTransaction {
         TaskEntity.all().map(::entityToModel)
     }
@@ -20,9 +20,10 @@ class PostgresTaskRepository : TaskRepository {
 
     override suspend fun taskByName(name: String): Task? = suspendTransaction {
         TaskEntity
-            .find { TaskTable.name eq name }
+            .find { (TaskTable.name eq name) }
+            .limit(1)
             .map { taskEntity -> entityToModel(taskEntity) }
-            .singleOrNull()
+            .firstOrNull()
     }
 
     override suspend fun addTask(task: Task): Unit = suspendTransaction {
